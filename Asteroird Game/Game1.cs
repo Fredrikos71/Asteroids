@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Project3
+namespace Asteroird_Game
 {
     public class Game1 : Game
     {
