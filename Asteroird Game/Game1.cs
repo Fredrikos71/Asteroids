@@ -2,13 +2,18 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Asteroird_Game
+namespace Project3
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
+        public Texture2D AsteroidTex;
+        Texture2D Space;
+        Vector2 pos1 = new Vector2(100, -5);
+        Vector2 pos;
+        Vector2 velocity;
+        int width;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -27,6 +32,13 @@ namespace Asteroird_Game
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            AsteroidTex = Content.Load<Texture2D>("Asteroid");
+            velocity = new Vector2(2, 0);
+            pos = new Vector2(0, 0);
+            width = Window.ClientBounds.Width;
+
+            Space = Content.Load<Texture2D>("Space2");
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -35,6 +47,12 @@ namespace Asteroird_Game
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            pos = pos + velocity;
+
+            if (pos.X < 0 || pos.X > width - AsteroidTex.Width)
+            {
+                velocity = velocity * -1;
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -43,6 +61,11 @@ namespace Asteroird_Game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin();
+            spriteBatch.Draw(Space, pos1, Color.White);
+            spriteBatch.Draw(AsteroidTex, pos, Color.White);
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 
