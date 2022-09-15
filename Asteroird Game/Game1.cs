@@ -67,7 +67,7 @@ namespace Asteroird_Game
             spriteBatch.Draw(AsteroidTex, pos, Color.White);
             spriteBatch.End();
 
-            // TODO: Add your drawing code here
+            // TODO: Add your drawing code here'
 
             base.Draw(gameTime);
         }
