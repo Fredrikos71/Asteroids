@@ -14,6 +14,9 @@ namespace Asteroird_Game
         Vector2 pos;
         Vector2 velocity;
         int width;
+
+        Spacecraft[] Spacecrafts;  
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -23,6 +26,7 @@ namespace Asteroird_Game
 
         protected override void Initialize()
         {
+            Spacecrafts = new Spacecraft[4];
             // TODO: Add your initialization logic here
 
             base.Initialize();
@@ -32,8 +36,14 @@ namespace Asteroird_Game
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //Array För spacecrafts
+            Spacecrafts[0] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(500, 203, 120, 120));
+            Spacecrafts[1] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(64, 120, 120, 120));
+            Spacecrafts[2] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(350, 200, 64, 64));
+            Spacecrafts[3] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(300, 30, 64, 64));
+
             AsteroidTex = Content.Load<Texture2D>("Asteroid");
-            velocity = new Vector2(2, 0);
+            velocity = new Vector2(2, 1);
             pos = new Vector2(0, 0);
             width = Window.ClientBounds.Width;
 
@@ -64,7 +74,10 @@ namespace Asteroird_Game
 
             spriteBatch.Begin();
             spriteBatch.Draw(Space, pos1, Color.White);
+            foreach (Spacecraft Spacecrafts in Spacecrafts)
+                Spacecrafts.Draw(spriteBatch);
             spriteBatch.Draw(AsteroidTex, pos, Color.White);
+
             spriteBatch.End();
 
             // TODO: Add your drawing code here
