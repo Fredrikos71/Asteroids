@@ -2,14 +2,18 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.CodeDom;
 
 namespace Asteroird_Game
 {
     public class Game1 : Game
     {
+        MouseState mouse;
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         public Texture2D AsteroidTex;
+        //Rectangle AsteroidRectangle = new Rectangle(100, 100, 100, 100);
         Texture2D Space;
         Vector2 pos1 = new Vector2(0, 0);
         Vector2 pos;
@@ -33,6 +37,12 @@ namespace Asteroird_Game
         protected override void Initialize()
         {
             Window.Title = "Game Asteroid";
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) ;
+            }
+
+
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             graphics.IsFullScreen = true;
@@ -48,7 +58,7 @@ namespace Asteroird_Game
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             //Array För spacecrafts
-            Spacecrafts[0] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(500, 203, 120, 120));
+            Spacecrafts[0] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(500, 203, 180, 180));
             Spacecrafts[1] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(200, 500, 120, 120));
             Spacecrafts[2] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(1200, 200, 120, 120));
             Spacecrafts[3] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(1000, 500, 64, 64));
@@ -70,9 +80,8 @@ namespace Asteroird_Game
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
+            /*mouse = Mouse.GetState();
+            if (mouse.LeftButton == ButtonState.Pressed)*/
             pos = pos + velocity;
 
             if (pos.X < 0 || pos.X > width - AsteroidTex.Width)
