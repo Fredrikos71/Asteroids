@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Asteroird_Game
 {
@@ -10,9 +11,13 @@ namespace Asteroird_Game
         private SpriteBatch spriteBatch;
         public Texture2D AsteroidTex;
         Texture2D Space;
-        Vector2 pos1 = new Vector2(0, -5);
+        Vector2 pos1 = new Vector2(0, 0);
         Vector2 pos;
         Vector2 velocity;
+
+        Random myRandom = new Random();
+
+
         int width;
         Asteroid Asteroid;
 
@@ -27,7 +32,12 @@ namespace Asteroird_Game
 
         protected override void Initialize()
         {
-            Spacecrafts = new Spacecraft[4];
+            Window.Title = "Game Asteroid";
+            graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
+            Spacecrafts = new Spacecraft[5];
             // TODO: Add your initialization logic here
 
             base.Initialize();
@@ -36,22 +46,24 @@ namespace Asteroird_Game
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             //Array För spacecrafts
             Spacecrafts[0] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(500, 203, 120, 120));
-            Spacecrafts[1] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(64, 120, 120, 120));
-            Spacecrafts[2] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(350, 200, 64, 64));
-            Spacecrafts[3] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(300, 30, 64, 64));
+            Spacecrafts[1] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(200, 500, 120, 120));
+            Spacecrafts[2] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(1200, 200, 120, 120));
+            Spacecrafts[3] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(1000, 500, 64, 64));
+            Spacecrafts[4] = new Spacecraft(Content.Load<Texture2D>("spaceCraft_trans"), new Rectangle(1400, 400 , 64 , 64));
 
             AsteroidTex = Content.Load<Texture2D>("Asteroid");
-            velocity = new Vector2(2, 1);
-            pos = new Vector2(0, 0);
+            RandomVel();
+            pos = new Vector2(960,540);
             width = Window.ClientBounds.Width;
 
             Vector2 pos2 = Vector2.Zero;
-            Vector2 velocity2 = new Vector2(1, 3);
-            Asteroid = new Asteroid(AsteroidTex, pos, velocity2);
-            Space = Content.Load<Texture2D>("Space2");
+            pos2 = new Vector2(700, 540);
+            RandomVel();
+            Asteroid = new Asteroid(AsteroidTex, pos2, velocity);
+            Space = Content.Load<Texture2D>("Rymden");
 
             // TODO: use this.Content to load your game content here
         }
@@ -70,6 +82,17 @@ namespace Asteroird_Game
             // TODO: Add your update logic here
             Asteroid.update();
             base.Update(gameTime);
+        }
+
+        void RandomVel()
+        {
+            velocity = Vector2.Zero;
+            while (velocity == Vector2.Zero)
+            {
+                velocity.X = myRandom.Next(-3, 4);
+                velocity.Y = myRandom.Next(-3, 4);
+            }
+
         }
 
         protected override void Draw(GameTime gameTime)
