@@ -11,15 +11,30 @@ namespace Asteroird_Game
 {
     public class Asteroid
     {
-        public Texture2D Tex;
-        public Vector2 pos;
-        public Vector2 Velocity;
+        Texture2D AsteroidTex;
+        Vector2 pos;
+        Vector2 Velocity;
+        int width;
+        Vector2 velocity;
 
-        public Asteroid(Texture2D tex, Vector2 pos, Vector2 velocity )
+        public Asteroid(Texture2D AsteroidTex, Vector2 pos, Vector2 velocity )
         {
-            Tex = tex;
+            this.AsteroidTex = AsteroidTex;
             this.pos = pos;
-            Velocity = velocity;
+            this.Velocity = velocity;
+        }
+        public void update()
+        {
+            pos = pos + Velocity;
+
+            if (pos.X < 0 || pos.X > width - AsteroidTex.Width)
+            {
+                velocity = velocity * -1;
+            }
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(AsteroidTex, pos, Color.White);
         }
     }
 }

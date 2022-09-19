@@ -10,7 +10,7 @@ namespace Asteroird_Game
         private SpriteBatch spriteBatch;
         public Texture2D AsteroidTex;
         Texture2D Space;
-        Vector2 pos1 = new Vector2(100, -5);
+        Vector2 pos1 = new Vector2(0, -5);
         Vector2 pos;
         Vector2 velocity;
         int width;
@@ -47,6 +47,9 @@ namespace Asteroird_Game
             pos = new Vector2(0, 0);
             width = Window.ClientBounds.Width;
 
+            Vector2 pos2 = Vector2.Zero;
+            Vector2 velocity2 = new Vector2(1, 3);
+            Asteroid = new Asteroid(AsteroidTex, pos, velocity2);
             Space = Content.Load<Texture2D>("Space2");
 
             // TODO: use this.Content to load your game content here
@@ -64,7 +67,7 @@ namespace Asteroird_Game
                 velocity = velocity * -1;
             }
             // TODO: Add your update logic here
-
+            Asteroid.update();
             base.Update(gameTime);
         }
 
@@ -77,10 +80,10 @@ namespace Asteroird_Game
             foreach (Spacecraft Spacecrafts in Spacecrafts)
                 Spacecrafts.Draw(spriteBatch);
             spriteBatch.Draw(AsteroidTex, pos, Color.White);
-
+            Asteroid.Draw(spriteBatch);
             spriteBatch.End();
 
-            // TODO: Add your drawing code here
+            // TODO: Add your drawing code here'
 
             base.Draw(gameTime);
         }
