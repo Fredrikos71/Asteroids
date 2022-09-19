@@ -14,6 +14,7 @@ namespace Asteroird_Game
         Vector2 pos;
         Vector2 velocity;
         int width;
+        Asteroid Asteroid;
 
         Spacecraft[] Spacecrafts;  
 
