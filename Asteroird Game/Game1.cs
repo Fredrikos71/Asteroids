@@ -169,7 +169,6 @@ namespace Asteroird_Game
             
                 // TODO: Add your update logic here
                 Asteroid.update();
-                asteroid2.update();
                 base.Update(gameTime);
         }
 
@@ -192,7 +191,7 @@ namespace Asteroird_Game
             spriteBatch.Draw(Space, pos1, Color.White);
             foreach (Spacecraft Spacecrafts in Spacecrafts)
                 Spacecrafts.Draw(spriteBatch);
-            asteroid2.Draw(spriteBatch);
+            spriteBatch.Draw(AsteroidTex, pos, Color.White);
             Asteroid.Draw(spriteBatch);
             spriteBatch.Draw(crosshairTexture, crosshairRect, Color.Red);
 
