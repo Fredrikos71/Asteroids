@@ -28,6 +28,7 @@ namespace Asteroird_Game
 
         int width;
         Asteroid Asteroid;
+        Asteroid asteroid2;
 
         Spacecraft[] Spacecrafts;  
 
@@ -75,12 +76,13 @@ namespace Asteroird_Game
             AsteroidTex = Content.Load<Texture2D>("Asteroid");
             RandomVel();
             pos = new Vector2(960,540);
-           width = Window.ClientBounds.Width;
+            width = Window.ClientBounds.Width;
 
             Vector2 pos2 = Vector2.Zero;
             pos2 = new Vector2(700, 540);
             RandomVel();
             Asteroid = new Asteroid(AsteroidTex, pos2, velocity);
+            asteroid2 = new Asteroid(AsteroidTex, pos, velocity);
             Space = Content.Load<Texture2D>("Rymden");
 
             // TODO: use this.Content to load your game content here
@@ -99,13 +101,14 @@ namespace Asteroird_Game
 
             pos = pos + velocity;
 
-            /* if (pos.X < 0 || pos.X > width - AsteroidTex.Width)
+            if (pos.X < 0 || pos.X > width - AsteroidTex.Width)
             {
-               // velocity = velocity * -1;
+                velocity = velocity * -1;
             }
-            */
+            
                 // TODO: Add your update logic here
                 Asteroid.update();
+                asteroid2.update();
                 base.Update(gameTime);
         }
 
@@ -128,7 +131,7 @@ namespace Asteroird_Game
             spriteBatch.Draw(Space, pos1, Color.White);
             foreach (Spacecraft Spacecrafts in Spacecrafts)
                 Spacecrafts.Draw(spriteBatch);
-            spriteBatch.Draw(AsteroidTex, pos, Color.White);
+            asteroid2.Draw(spriteBatch);
             Asteroid.Draw(spriteBatch);
             spriteBatch.End();
 
