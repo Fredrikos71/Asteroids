@@ -101,7 +101,7 @@ namespace Asteroird_Game
             AsteroidTex = Content.Load<Texture2D>("Asteroid");
             RandomVel();
             pos = new Vector2(960,540);
-           width = Window.ClientBounds.Width;
+            width = Window.ClientBounds.Width;
 
 
             crosshairTexture = Content.Load<Texture2D>("crosshair");
@@ -169,6 +169,7 @@ namespace Asteroird_Game
             
                 // TODO: Add your update logic here
                 Asteroid.update();
+                asteroid2.update();
                 base.Update(gameTime);
         }
 
@@ -191,7 +192,7 @@ namespace Asteroird_Game
             spriteBatch.Draw(Space, pos1, Color.White);
             foreach (Spacecraft Spacecrafts in Spacecrafts)
                 Spacecrafts.Draw(spriteBatch);
-            spriteBatch.Draw(AsteroidTex, pos, Color.White);
+            asteroid2.Draw(spriteBatch);
             Asteroid.Draw(spriteBatch);
             spriteBatch.Draw(crosshairTexture, crosshairRect, Color.Red);
 
