@@ -53,7 +53,7 @@ namespace Asteroird_Game
             Content.RootDirectory = "Content";
             IsMouseVisible = false;
         }
-
+        
         protected override void Initialize()
         {
 
