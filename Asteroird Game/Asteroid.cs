@@ -16,7 +16,6 @@ namespace Asteroird_Game
         Vector2 Velocity;
         int width;
         Vector2 velocity;
-
         public Asteroid(Texture2D AsteroidTex, Vector2 pos, Vector2 velocity )
         {
             this.AsteroidTex = AsteroidTex;

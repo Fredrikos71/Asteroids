@@ -1,26 +1,30 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.CodeDom;
+
 
 namespace Asteroird_Game
 {
     public class Game1 : Game
     {
+
         MouseState mouse;
 
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         public Texture2D AsteroidTex;
-        //Rectangle AsteroidRectangle = new Rectangle(100, 100, 100, 100);
+        Rectangle AsteroidRectangle = new Rectangle(100, 100, 100, 100);
         Texture2D Space;
         Vector2 pos1 = new Vector2(0, 0);
         Vector2 pos;
         Vector2 velocity;
 
         Random myRandom = new Random();
-
 
         int width;
         Asteroid Asteroid;
@@ -29,6 +33,7 @@ namespace Asteroird_Game
 
         public Game1()
         {
+            Window.Title = "Asteroids";
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -36,17 +41,20 @@ namespace Asteroird_Game
 
         protected override void Initialize()
         {
-            Window.Title = "Game Asteroid";
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) ;
-            }
+            // Windownds screen
+            graphics.PreferredBackBufferWidth = 1200;
+            graphics.PreferredBackBufferHeight = 700;
+            graphics.ApplyChanges();
+            Window.AllowUserResizing= true;
 
-
+            // Fullscreen
+            /*
             graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             graphics.IsFullScreen = true;
             graphics.ApplyChanges();
+            */
+
             Spacecrafts = new Spacecraft[5];
             // TODO: Add your initialization logic here
 
@@ -67,7 +75,7 @@ namespace Asteroird_Game
             AsteroidTex = Content.Load<Texture2D>("Asteroid");
             RandomVel();
             pos = new Vector2(960,540);
-            width = Window.ClientBounds.Width;
+           width = Window.ClientBounds.Width;
 
             Vector2 pos2 = Vector2.Zero;
             pos2 = new Vector2(700, 540);
@@ -80,17 +88,25 @@ namespace Asteroird_Game
 
         protected override void Update(GameTime gameTime)
         {
-            /*mouse = Mouse.GetState();
-            if (mouse.LeftButton == ButtonState.Pressed)*/
+            mouse = Mouse.GetState();
+            if (mouse.LeftButton == ButtonState.Pressed)
+            {
+                
+            }
+            /*if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed) Keyboard.GetState().IsKeyDown(Keys.Escape);
+                    Exit();
+            */ mouse = Mouse.GetState();
+
             pos = pos + velocity;
 
-            if (pos.X < 0 || pos.X > width - AsteroidTex.Width)
+            /* if (pos.X < 0 || pos.X > width - AsteroidTex.Width)
             {
-                velocity = velocity * -1;
+               // velocity = velocity * -1;
             }
-            // TODO: Add your update logic here
-            Asteroid.update();
-            base.Update(gameTime);
+            */
+                // TODO: Add your update logic here
+                Asteroid.update();
+                base.Update(gameTime);
         }
 
         void RandomVel()
